@@ -1,10 +1,13 @@
 import express from "express";
-import ctrl from "../../controllers/contacts.js";
-import validateBody from "../../decorators/validateBody.js";
+
+import ctrl from "../../controllers/contacts/index.js";
+import {validateBody} from "../../decorators/index.js";
+import {isValidId, authenticate} from "../../middlewares/index.js";
 import shemas from "../../schemas/contacts.js";
-import isValidId from "../../middlewares/isValidId.js";
 
 const contactsRouter = express.Router();
+
+contactsRouter.use(authenticate);
 
 contactsRouter.get("/", ctrl.listContacts);
 
