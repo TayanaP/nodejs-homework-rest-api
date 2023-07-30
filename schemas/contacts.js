@@ -13,4 +13,7 @@ const updateStatusContactSchema = Joi.object({
   }),
 });
 
-export default { addSchema, updateStatusContactSchema };
+export default { 
+  addSchema, 
+  updateStatusContactSchema
+ };
