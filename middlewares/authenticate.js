@@ -1,14 +1,19 @@
 import jwt from "jsonwebtoken";
 
-import {HttpError} from "../helpers/index.js";
-import {ctrlWrapper} from "../decorators/index.js";
-import {User} from "../models/index.js";
+import { HttpError } from "../helpers/index.js";
+import { ctrlWrapper } from "../decorators/index.js";
+import { User } from "../models/index.js";
 
 const { JWT_SECRET } = process.env;
 
 const authenticate = async (req, res, next) => {
   const { authorization = "" } = req.headers;
   const [bearer, token] = authorization.split(" ");
+
+  if (!token) {
+    throw HttpError(401, "Token not provided");
+  }
+
   if (bearer !== "Bearer") {
     throw HttpError(401, "Not authorized");
   }
