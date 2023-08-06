@@ -1,8 +1,8 @@
 import express from "express";
 
 import ctrl from "../../controllers/contacts/index.js";
-import {validateBody} from "../../decorators/index.js";
-import {isValidId, authenticate} from "../../middlewares/index.js";
+import { validateBody } from "../../decorators/index.js";
+import { isValidId, authenticate, upload } from "../../middlewares/index.js";
 import shemas from "../../schemas/contacts.js";
 
 const contactsRouter = express.Router();
@@ -13,7 +13,12 @@ contactsRouter.get("/", ctrl.listContacts);
 
 contactsRouter.get("/:id", isValidId, ctrl.getById);
 
-contactsRouter.post("/", validateBody(shemas.addSchema), ctrl.addContact);
+contactsRouter.post(
+  "/",
+  upload.single("avatar"),
+  validateBody(shemas.addSchema),
+  ctrl.addContact
+);
 
 contactsRouter.delete("/:id", isValidId, ctrl.removeContact);
 
