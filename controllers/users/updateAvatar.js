@@ -9,9 +9,6 @@ console.log(avatarPath);
 
 const updateAvatar = async (req, res) => {
   const { _id } = req.user;
-  // if (!_id) {
-  //   throw HttpError(401, "Not authorized");
-  // }
 
   if (!req.file) {
     throw HttpError(400, "Avatar file not found");
