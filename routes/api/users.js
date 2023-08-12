@@ -13,6 +13,14 @@ usersRouter.post(
   userCtrl.register
 );
 
+usersRouter.get("/verify/:verificationToken", userCtrl.verifyEmail);
+
+usersRouter.post(
+  "/verify",
+  validateBody(userSchemas.emailSchema),
+  userCtrl.resendVerifyEmail
+);
+
 usersRouter.post(
   "/login",
   validateBody(userSchemas.loginSchema),
